@@ -77,30 +77,60 @@ include CMakeFiles/Module7.dir/progress.make
 # Include the compile flags for this target's objects.
 include CMakeFiles/Module7.dir/flags.make
 
-CMakeFiles/Module7.dir/main.c.o: CMakeFiles/Module7.dir/flags.make
-CMakeFiles/Module7.dir/main.c.o: ../main.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/andrew/CLionProjects/Module7/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building C object CMakeFiles/Module7.dir/main.c.o"
-	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/Module7.dir/main.c.o   -c /home/andrew/CLionProjects/Module7/main.c
+CMakeFiles/Module7.dir/User.c.o: CMakeFiles/Module7.dir/flags.make
+CMakeFiles/Module7.dir/User.c.o: ../User.c
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/andrew/CLionProjects/Module7/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building C object CMakeFiles/Module7.dir/User.c.o"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/Module7.dir/User.c.o   -c /home/andrew/CLionProjects/Module7/User.c
 
-CMakeFiles/Module7.dir/main.c.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/Module7.dir/main.c.i"
-	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/andrew/CLionProjects/Module7/main.c > CMakeFiles/Module7.dir/main.c.i
+CMakeFiles/Module7.dir/User.c.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/Module7.dir/User.c.i"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/andrew/CLionProjects/Module7/User.c > CMakeFiles/Module7.dir/User.c.i
 
-CMakeFiles/Module7.dir/main.c.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/Module7.dir/main.c.s"
-	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/andrew/CLionProjects/Module7/main.c -o CMakeFiles/Module7.dir/main.c.s
+CMakeFiles/Module7.dir/User.c.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/Module7.dir/User.c.s"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/andrew/CLionProjects/Module7/User.c -o CMakeFiles/Module7.dir/User.c.s
+
+CMakeFiles/Module7.dir/InstanceHost.c.o: CMakeFiles/Module7.dir/flags.make
+CMakeFiles/Module7.dir/InstanceHost.c.o: ../InstanceHost.c
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/andrew/CLionProjects/Module7/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building C object CMakeFiles/Module7.dir/InstanceHost.c.o"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/Module7.dir/InstanceHost.c.o   -c /home/andrew/CLionProjects/Module7/InstanceHost.c
+
+CMakeFiles/Module7.dir/InstanceHost.c.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/Module7.dir/InstanceHost.c.i"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/andrew/CLionProjects/Module7/InstanceHost.c > CMakeFiles/Module7.dir/InstanceHost.c.i
+
+CMakeFiles/Module7.dir/InstanceHost.c.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/Module7.dir/InstanceHost.c.s"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/andrew/CLionProjects/Module7/InstanceHost.c -o CMakeFiles/Module7.dir/InstanceHost.c.s
+
+CMakeFiles/Module7.dir/LoadBalancer.c.o: CMakeFiles/Module7.dir/flags.make
+CMakeFiles/Module7.dir/LoadBalancer.c.o: ../LoadBalancer.c
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/andrew/CLionProjects/Module7/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building C object CMakeFiles/Module7.dir/LoadBalancer.c.o"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/Module7.dir/LoadBalancer.c.o   -c /home/andrew/CLionProjects/Module7/LoadBalancer.c
+
+CMakeFiles/Module7.dir/LoadBalancer.c.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/Module7.dir/LoadBalancer.c.i"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/andrew/CLionProjects/Module7/LoadBalancer.c > CMakeFiles/Module7.dir/LoadBalancer.c.i
+
+CMakeFiles/Module7.dir/LoadBalancer.c.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/Module7.dir/LoadBalancer.c.s"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/andrew/CLionProjects/Module7/LoadBalancer.c -o CMakeFiles/Module7.dir/LoadBalancer.c.s
 
 # Object files for target Module7
 Module7_OBJECTS = \
-"CMakeFiles/Module7.dir/main.c.o"
+"CMakeFiles/Module7.dir/User.c.o" \
+"CMakeFiles/Module7.dir/InstanceHost.c.o" \
+"CMakeFiles/Module7.dir/LoadBalancer.c.o"
 
 # External object files for target Module7
 Module7_EXTERNAL_OBJECTS =
 
-Module7: CMakeFiles/Module7.dir/main.c.o
+Module7: CMakeFiles/Module7.dir/User.c.o
+Module7: CMakeFiles/Module7.dir/InstanceHost.c.o
+Module7: CMakeFiles/Module7.dir/LoadBalancer.c.o
 Module7: CMakeFiles/Module7.dir/build.make
 Module7: CMakeFiles/Module7.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/andrew/CLionProjects/Module7/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Linking C executable Module7"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/andrew/CLionProjects/Module7/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Linking C executable Module7"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/Module7.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.

@@ -143,32 +143,86 @@ Module7/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Module7.dir/build.make CMakeFiles/Module7.dir/build
 .PHONY : Module7/fast
 
-main.o: main.c.o
+InstanceHost.o: InstanceHost.c.o
 
-.PHONY : main.o
+.PHONY : InstanceHost.o
 
 # target to build an object file
-main.c.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Module7.dir/build.make CMakeFiles/Module7.dir/main.c.o
-.PHONY : main.c.o
+InstanceHost.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Module7.dir/build.make CMakeFiles/Module7.dir/InstanceHost.c.o
+.PHONY : InstanceHost.c.o
 
-main.i: main.c.i
+InstanceHost.i: InstanceHost.c.i
 
-.PHONY : main.i
+.PHONY : InstanceHost.i
 
 # target to preprocess a source file
-main.c.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Module7.dir/build.make CMakeFiles/Module7.dir/main.c.i
-.PHONY : main.c.i
+InstanceHost.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Module7.dir/build.make CMakeFiles/Module7.dir/InstanceHost.c.i
+.PHONY : InstanceHost.c.i
 
-main.s: main.c.s
+InstanceHost.s: InstanceHost.c.s
 
-.PHONY : main.s
+.PHONY : InstanceHost.s
 
 # target to generate assembly for a file
-main.c.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Module7.dir/build.make CMakeFiles/Module7.dir/main.c.s
-.PHONY : main.c.s
+InstanceHost.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Module7.dir/build.make CMakeFiles/Module7.dir/InstanceHost.c.s
+.PHONY : InstanceHost.c.s
+
+LoadBalancer.o: LoadBalancer.c.o
+
+.PHONY : LoadBalancer.o
+
+# target to build an object file
+LoadBalancer.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Module7.dir/build.make CMakeFiles/Module7.dir/LoadBalancer.c.o
+.PHONY : LoadBalancer.c.o
+
+LoadBalancer.i: LoadBalancer.c.i
+
+.PHONY : LoadBalancer.i
+
+# target to preprocess a source file
+LoadBalancer.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Module7.dir/build.make CMakeFiles/Module7.dir/LoadBalancer.c.i
+.PHONY : LoadBalancer.c.i
+
+LoadBalancer.s: LoadBalancer.c.s
+
+.PHONY : LoadBalancer.s
+
+# target to generate assembly for a file
+LoadBalancer.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Module7.dir/build.make CMakeFiles/Module7.dir/LoadBalancer.c.s
+.PHONY : LoadBalancer.c.s
+
+User.o: User.c.o
+
+.PHONY : User.o
+
+# target to build an object file
+User.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Module7.dir/build.make CMakeFiles/Module7.dir/User.c.o
+.PHONY : User.c.o
+
+User.i: User.c.i
+
+.PHONY : User.i
+
+# target to preprocess a source file
+User.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Module7.dir/build.make CMakeFiles/Module7.dir/User.c.i
+.PHONY : User.c.i
+
+User.s: User.c.s
+
+.PHONY : User.s
+
+# target to generate assembly for a file
+User.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Module7.dir/build.make CMakeFiles/Module7.dir/User.c.s
+.PHONY : User.c.s
 
 # Help Target
 help:
@@ -179,9 +233,15 @@ help:
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
 	@echo "... Module7"
-	@echo "... main.o"
-	@echo "... main.i"
-	@echo "... main.s"
+	@echo "... InstanceHost.o"
+	@echo "... InstanceHost.i"
+	@echo "... InstanceHost.s"
+	@echo "... LoadBalancer.o"
+	@echo "... LoadBalancer.i"
+	@echo "... LoadBalancer.s"
+	@echo "... User.o"
+	@echo "... User.i"
+	@echo "... User.s"
 .PHONY : help
 
 

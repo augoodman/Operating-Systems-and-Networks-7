@@ -76,7 +76,19 @@
 				</MakeCommands>
 			</Target>
 		</Build>
-		<Unit filename="/home/andrew/CLionProjects/Module7/main.c">
+		<Unit filename="/home/andrew/CLionProjects/Module7/InstanceHost.c">
+			<Option target="Module7"/>
+		</Unit>
+		<Unit filename="/home/andrew/CLionProjects/Module7/InstanceHost.h">
+			<Option target="Module7"/>
+		</Unit>
+		<Unit filename="/home/andrew/CLionProjects/Module7/LoadBalancer.c">
+			<Option target="Module7"/>
+		</Unit>
+		<Unit filename="/home/andrew/CLionProjects/Module7/LoadBalancer.h">
+			<Option target="Module7"/>
+		</Unit>
+		<Unit filename="/home/andrew/CLionProjects/Module7/User.c">
 			<Option target="Module7"/>
 		</Unit>
 		<Unit filename="/home/andrew/CLionProjects/Module7/CMakeLists.txt">
