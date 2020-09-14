@@ -1,0 +1,178 @@
+        -:    0:Source:/home/andrew/CLionProjects/Module7/GoodmanLoadBalancer.c
+        -:    0:Graph:/home/andrew/CLionProjects/Module7/cmake-build-debug-coverage/CMakeFiles/Module7.dir/GoodmanLoadBalancer.c.gcno
+        -:    0:Data:/home/andrew/CLionProjects/Module7/cmake-build-debug-coverage/CMakeFiles/Module7.dir/GoodmanLoadBalancer.c.gcda
+        -:    0:Runs:1
+        -:    1:/**
+        -:    2:* File:   GoodmanLoadBalancer.c
+        -:    3:* Implements API for balancing server traffic load.
+        -:    4:*
+        -:    5:* Completion time: 8 hours (all files)
+        -:    6:*
+        -:    7:* @author Goodman, Khan, Acuna
+        -:    8:* @version 2020.09.14
+        -:    9:*/
+        -:   10:
+        -:   11:////////////////////////////////////////////////////////////////////////////////
+        -:   12://INCLUDES
+        -:   13:#include <pthread.h>
+        -:   14:#include <stdlib.h>
+        -:   15:#include <stdio.h>
+        -:   16:#include "LoadBalancer.h"
+        -:   17:#include "InstanceHost.h"
+        -:   18:
+        -:   19:////////////////////////////////////////////////////////////////////////////////
+        -:   20://DATA STRUCTURES
+        -:   21:typedef struct list {
+        -:   22:    struct job_node* head;
+        -:   23:    int size;
+        -:   24:} batch;
+        -:   25:
+        -:   26:typedef struct balancer {
+        -:   27:    int batch_size;
+        -:   28:    batch* jobs;
+        -:   29:    host* host;
+        -:   30:    pthread_mutex_t lock;
+        -:   31:}balancer;
+        -:   32:
+        -:   33:////////////////////////////////////////////////////////////////////////////////
+        -:   34://FORWARD DECLARATIONS FOR PRIVATE FUNCTIONS
+        -:   35:batch* create_batch();
+        -:   36:void destroy_batch(batch** batch);
+        -:   37:void add_job(batch* batch, int user_id, int data, int* data_return);
+        -:   38:void remove_job(batch* batch);
+        -:   39:
+        -:   40:/**
+        -:   41: * Initializes the load balancer. Takes batch size as parameter.
+        -:   42: *
+        -:   43: * @param batch_size The max batch size for this load balancer.
+        -:   44: */
+        1:   45:balancer* balancer_create(int batch_size){
+        1:   46:    balancer* lb = (balancer*)malloc(sizeof(balancer));
+        1:   47:    pthread_mutex_init(&lb->lock, NULL);
+        1:   47-block  0
+        1:   48:    lb->batch_size = batch_size;
+        1:   49:    lb->jobs = create_batch();
+        1:   50:    lb->host = host_create();
+        1:   51:    return lb;
+        -:   52:}
+        -:   53:
+        -:   54:/**
+        -:   55: * Shuts down the load balancer. Ensures any outstanding batches have
+        -:   56: * completed.
+        -:   57: *
+        -:   58: * @param lb A load balancer struct to be shut down.
+        -:   59: */
+        1:   60:void balancer_destroy(balancer** lb){
+        2:   61:    while((*lb)->jobs->size != 0) {
+        1:   61-block  0
+        2:   61-block  1
+        1:   62:        host_request_instance((*lb)->host, (*lb)->jobs->head);
+        1:   62-block  0
+        5:   63:        while ((*lb)->jobs->head != NULL) {
+        5:   63-block  0
+        4:   64:            remove_job((*lb)->jobs);
+        4:   64-block  0
+        -:   65:        }
+        -:   66:    }
+        1:   67:    host_destroy(&(*lb)->host);
+        1:   67-block  0
+        1:   68:    destroy_batch(&(*lb)->jobs);
+        1:   69:    pthread_mutex_destroy(&(*lb)->lock);
+        1:   70:    free(*lb);
+        1:   71:    *lb = NULL;
+        1:   72:}
+        -:   73:
+        -:   74:/**
+        -:   75: * Adds a job to the load balancer. If enough jobs have been added to fill a
+        -:   76: * batch, will request a new instance from InstanceHost. When job is complete,
+        -:   77: * data_return will be updated with the result.
+        -:   78: *
+        -:   79: * @param lb A load balancer to which to send a job.
+        -:   80: * @param user_id The id of the user making the request.
+        -:   81: * @param data The data the user wants to process.
+        -:   82: * @param data_return A pointer to a location to store the result of processing.
+        -:   83: */
+        9:   84:void balancer_add_job(balancer* lb, int user_id, int data, int* data_return){
+        9:   85:    printf("LoadBalancer: Received new job from user #%d to process data=%d and store it at %p.\n",
+        9:   85-block  0
+        -:   86:           user_id, data, data_return);
+        9:   87:    pthread_mutex_lock(&lb->lock);
+        9:   88:    add_job(lb->jobs, user_id, data, data_return);
+        9:   89:    if(lb->jobs->size == lb->batch_size) {
+        1:   90:        host_request_instance(lb->host, lb->jobs->head);
+        1:   90-block  0
+        6:   91:        while(lb->jobs->head != NULL){
+        6:   91-block  0
+        5:   92:            remove_job(lb->jobs);
+        5:   92-block  0
+        -:   93:        }
+        -:   94:    }
+        9:   95:    pthread_mutex_unlock(&lb->lock);
+        9:   95-block  0
+        9:   96:}
+        -:   97:
+        -:   98:/**
+        -:   99: * Creates a new batch (list of job nodes).
+        -:  100: */
+        1:  101:batch* create_batch(){
+        1:  102:    batch* new_batch = (batch*)malloc(sizeof(new_batch));
+        1:  103:    new_batch->size = 0;
+        1:  104:    return new_batch;
+        1:  104-block  0
+        -:  105:}
+        -:  106:
+        -:  107:/**
+        -:  108: * Destroys a batch (list of job nodes).
+        -:  109: *
+        -:  110: * @param batch A batch struct to be destroyed.
+        -:  111: */
+        1:  112:void destroy_batch(batch** batch){
+        1:  113:    struct job_node* temp = (*batch)->head;
+        1:  114:    free(*batch);
+        1:  115:    *batch = NULL;
+        1:  116:}
+        -:  117:
+        -:  118:/**
+        -:  119: * Adds a job node to a batch struct.
+        -:  120: *
+        -:  121: * @param batch A batch struct to be added to.
+        -:  122: * @param user_id The id of the user making the request.
+        -:  123: * @param data The data the user wants to process.
+        -:  124: * @param data_return A pointer to a location to store the result of processing.
+        -:  125: */
+        9:  126:void add_job(batch* batch, int user_id, int data, int* data_return){
+        9:  127:    struct job_node* new_job = (struct job_node*)malloc(sizeof(struct job_node));
+        9:  128:    new_job->user_id = user_id;
+        9:  129:    new_job->data = data;
+        9:  130:    new_job->data_result = data_return;
+        9:  131:    new_job->next = NULL;
+        9:  132:    if(batch->size == 0)
+        9:  132-block  0
+        2:  133:        batch->head = new_job;
+        2:  133-block  0
+        -:  134:    else{
+        7:  135:        struct job_node* iter = batch->head;
+       16:  136:        while(iter->next != NULL)
+        7:  136-block  0
+       16:  136-block  1
+        9:  137:            iter = iter->next;
+        9:  137-block  0
+        7:  138:        iter->next = new_job;
+        7:  139:        iter = NULL;
+        7:  139-block  0
+        -:  140:    }
+        9:  141:    batch->size++;
+        9:  142:}
+        -:  143:
+        -:  144:/**
+        -:  145: * Removes a job node from a batch list.
+        -:  146: *
+        -:  147: * @param batch A batch struct from which to remove a job node.
+        -:  148: */
+        9:  149:void remove_job(batch* batch){
+        9:  150:    struct job_node* temp = batch->head;
+        9:  151:    batch->head = batch->head->next;
+        9:  152:    free(temp);
+        9:  153:    temp = NULL;
+        9:  154:    batch->size--;
+        9:  155:}

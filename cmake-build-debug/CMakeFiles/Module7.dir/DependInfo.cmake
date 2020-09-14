@@ -4,8 +4,8 @@ set(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_C
-  "/home/andrew/CLionProjects/Module7/InstanceHost.c" "/home/andrew/CLionProjects/Module7/cmake-build-debug/CMakeFiles/Module7.dir/InstanceHost.c.o"
-  "/home/andrew/CLionProjects/Module7/LoadBalancer.c" "/home/andrew/CLionProjects/Module7/cmake-build-debug/CMakeFiles/Module7.dir/LoadBalancer.c.o"
+  "/home/andrew/CLionProjects/Module7/GoodmanInstanceHost.c" "/home/andrew/CLionProjects/Module7/cmake-build-debug/CMakeFiles/Module7.dir/GoodmanInstanceHost.c.o"
+  "/home/andrew/CLionProjects/Module7/GoodmanLoadBalancer.c" "/home/andrew/CLionProjects/Module7/cmake-build-debug/CMakeFiles/Module7.dir/GoodmanLoadBalancer.c.o"
   "/home/andrew/CLionProjects/Module7/User.c" "/home/andrew/CLionProjects/Module7/cmake-build-debug/CMakeFiles/Module7.dir/User.c.o"
   )
 set(CMAKE_C_COMPILER_ID "GNU")

@@ -7,6 +7,8 @@ add_executable(Module7
         User.c
         GoodmanInstanceHost.c
         GoodmanLoadBalancer.c
-        GoodmanInstanceHost.h
-        GoodmanLoadBalancer.h
+        InstanceHost.h
+        LoadBalancer.h
         )
+
+target_link_libraries(Module7 pthread)

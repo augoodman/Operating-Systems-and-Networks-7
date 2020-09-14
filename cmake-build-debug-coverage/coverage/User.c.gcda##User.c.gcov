@@ -1,0 +1,99 @@
+        -:    0:Source:/home/andrew/CLionProjects/Module7/User.c
+        -:    0:Graph:/home/andrew/CLionProjects/Module7/cmake-build-debug-coverage/CMakeFiles/Module7.dir/User.c.gcno
+        -:    0:Data:/home/andrew/CLionProjects/Module7/cmake-build-debug-coverage/CMakeFiles/Module7.dir/User.c.gcda
+        -:    0:Runs:1
+        -:    1:/**
+        -:    2: * Program to simulate multiple users simultaneously requesting work (a "job")
+        -:    3: * to be carried by a load balancing server and returned to the user. Job is to
+        -:    4: * compute the square of a number.
+        -:    5: * 
+        -:    6: * @author Khan, Acuna
+        -:    7: * @version 1.2
+        -:    8: */
+        -:    9:#define _POSIX_C_SOURCE 199506L
+        -:   10:
+        -:   11:#include <pthread.h>
+        -:   12:#include <stdio.h>
+        -:   13:#include <stdlib.h>
+        -:   14:#include <time.h>
+        -:   15:#include <unistd.h>
+        -:   16:#include "LoadBalancer.h"
+        -:   17:
+        -:   18://forward declarations for internal (private) functions.
+        -:   19:void* simulate_user_request(void* user_id);
+        -:   20:
+        -:   21://variable to store load balancer object
+        -:   22:balancer* lb;
+        -:   23:
+        -:   24:/**
+        -:   25: * Entry point to simulation.
+        -:   26: * 
+        -:   27: * @return Zero.
+        -:   28: */
+        1:   29:int main() {
+        1:   30:	int number_of_requests = 9;
+        1:   31:    int batch_size = 5;
+        1:   32:	printf("Please input number of requests (users): ");
+        1:   32-block  0
+        -:   33:	//scanf("%d", &number_of_requests);
+        1:   34:	printf("Please input batch size: ");
+        -:   35:	//scanf("%d", &batch_size);
+        -:   36:
+        1:   37:	pthread_t threads[number_of_requests];
+        -:   38:
+        1:   39:    lb = balancer_create(batch_size);
+        -:   40:
+        -:   41:    //create number_of_requests number of users that want to square a number.
+       10:   42:    for (int i = 0; i < number_of_requests; i++) {
+       10:   42-block  0
+        9:   43:        printf("creating: %d\n", i);
+        9:   43-block  0
+        9:   44:        pthread_create(&threads[i], NULL, &simulate_user_request, (void*)i);
+        -:   45:    }
+        -:   46:
+        1:   47:    nanosleep((struct timespec[]){{2, 0}}, NULL); //wait two seconds
+        1:   47-block  0
+        -:   48:
+        1:   49:    balancer_destroy(&lb);
+        -:   50:
+        -:   51:    //wait for all users to finish before program exit.
+       10:   52:    for (int i = 0; i < number_of_requests; i++)
+       10:   52-block  0
+        9:   53:        pthread_join(threads[i], NULL);   
+        9:   53-block  0
+        -:   54:    
+        1:   55:    return 0;
+        1:   55-block  0
+        -:   56:}
+        -:   57:
+        -:   58:/**
+        -:   59: * Simulates a user requesting work to be done a server. Expected to be run in a
+        -:   60: * thread.
+        -:   61: * 
+        -:   62: * @param user_id
+        -:   63: * @return 
+        -:   64: */
+        9:   65:void* simulate_user_request(void* user_id) {
+        9:   66:    int data = rand() % 100;
+        9:   66-block  0
+        9:   67:    int* result = (int*)malloc(sizeof(int));
+        9:   68:    *result = -1;
+        -:   69:    
+        -:   70:    //make the thread wait to simulate differences in when user requests occur.
+        9:   71:    int ms = (rand() % 100) * 1000;
+        9:   72:    nanosleep((struct timespec[]){{0, ms*1000000}}, NULL);
+        -:   73:    
+        9:   74:    printf("User #%d: Wants to process data=%d and store it at %p.\n", (int)user_id, data, result);
+        -:   75:    
+        -:   76:    //make request to balance to complete job and wait for it's completion.
+        9:   77:    balancer_add_job(lb, (int)user_id, data, result);
+561386093:   78:    while(*result == -1);  //busy waiting, bad but simple
+561386093:   78-block  0
+        -:   79:    
+        9:   80:    printf("User #%d: Received result from data=%d as result=%d.\n", (int)user_id, data, *result);
+        9:   80-block  0
+        -:   81:    
+        9:   82:    free(result);
+        -:   83:    
+        9:   84:    pthread_exit(NULL);
+        -:   85:}

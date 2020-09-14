@@ -1,0 +1,80 @@
+        -:    0:Source:/home/andrew/CLionProjects/Module7/GoodmanInstanceHost.c
+        -:    0:Graph:/home/andrew/CLionProjects/Module7/cmake-build-debug-coverage/CMakeFiles/Module7.dir/GoodmanInstanceHost.c.gcno
+        -:    0:Data:/home/andrew/CLionProjects/Module7/cmake-build-debug-coverage/CMakeFiles/Module7.dir/GoodmanInstanceHost.c.gcda
+        -:    0:Runs:1
+        -:    1:/**
+        -:    2:* File:   GoodmanInstanceHost.c
+        -:    3:* Implements API for simulating a cloud processing environment.
+        -:    4:*
+        -:    5:* Completion time: 8 hours (all files)
+        -:    6:*
+        -:    7:* @author Goodman, Acuna
+        -:    8:* @version 2020.09.14
+        -:    9:*/
+        -:   10:
+        -:   11:////////////////////////////////////////////////////////////////////////////////
+        -:   12://INCLUDES
+        -:   13:#include <pthread.h>
+        -:   14:#include <stdlib.h>
+        -:   15:#include <stdio.h>
+        -:   16:#include "InstanceHost.h"
+        -:   17:
+        -:   18:////////////////////////////////////////////////////////////////////////////////
+        -:   19://DATA STRUCTURES
+        -:   20:typedef struct host {
+        -:   21:    int num_instance;
+        -:   22:    pthread_mutex_t lock;
+        -:   23:} host;
+        -:   24:
+        -:   25:/**
+        -:   26:* Initializes the host environment.
+        -:   27:*/
+        1:   28:host* host_create(){
+        1:   29:    host* h = (host*)malloc(sizeof(host));
+        1:   30:    pthread_mutex_init(&h->lock, NULL);
+        1:   30-block  0
+        1:   31:    h->num_instance = 0;
+        1:   32:}
+        -:   33:
+        -:   34:/**
+        -:   35:* Shuts down the host environment. Ensures any outstanding batches have
+        -:   36:* completed.
+        -:   37:*
+        -:   38:* @param h A host struct to be destroyed.
+        -:   39:*/
+        1:   40:void host_destroy(host** h){
+        1:   41:    while((*h)->num_instance != 0);
+        1:   41-block  0
+        1:   41-block  1
+        1:   42:    pthread_mutex_destroy(&(*h)->lock);
+        1:   42-block  0
+        1:   43:    free(*h);
+        1:   44:    *h = NULL;
+        1:   45:}
+        -:   46:
+        -:   47:/**
+        -:   48:* Creates a new server instance (i.e., thread) to handle processing the items
+        -:   49:* contained in a batch (i.e., a listed batch of job_node). InstanceHost will
+        -:   50:* maintain a batch of active instances, and if the host is requested to
+        -:   51:* shutdown, ensures that all jobs are completed.
+        -:   52:*
+        -:   53:* @param h A host from which to request a server instance.
+        -:   54:* @param job_batch_list A batch containing the jobs in a batch to process.
+        -:   55:*/
+        2:   56:void host_request_instance(host* h, struct job_node* batch){
+        2:   57:    printf("LoadBalancer: Received batch and spinning up new instance.\n");
+        2:   57-block  0
+        -:   58:    int result;
+        2:   59:    pthread_mutex_lock(&h->lock);
+        2:   60:    h->num_instance++;
+       11:   61:    while(batch != NULL){
+       11:   61-block  0
+        9:   62:        result = batch->data * batch->data;
+        9:   63:        *batch->data_result = result;
+        9:   64:        batch = batch->next;
+        9:   64-block  0
+        -:   65:    }
+        2:   66:    h->num_instance--;
+        2:   67:    pthread_mutex_unlock(&h->lock);
+        2:   67-block  0
+        2:   68:}

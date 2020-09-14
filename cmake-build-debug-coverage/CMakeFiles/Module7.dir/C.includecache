@@ -1,0 +1,30 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/andrew/CLionProjects/Module7/InstanceHost.h
+LoadBalancer.h
+/home/andrew/CLionProjects/Module7/LoadBalancer.h
+
+/home/andrew/CLionProjects/Module7/LoadBalancer.h
+InstanceHost.h
+/home/andrew/CLionProjects/Module7/InstanceHost.h
+
+/home/andrew/CLionProjects/Module7/User.c
+pthread.h
+-
+stdio.h
+-
+stdlib.h
+-
+time.h
+-
+unistd.h
+-
+LoadBalancer.h
+/home/andrew/CLionProjects/Module7/LoadBalancer.h
+
